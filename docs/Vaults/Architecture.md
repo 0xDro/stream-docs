@@ -5,10 +5,12 @@ Stream vaults are vaults composed as a solidity contract that follow a round-by-
 
 ## Vault Deposit Flow
 
+![Vault Deposit Flow Diagram](/img/StreamFlow.png)
+
 1. User deposits 1000 USDC into LevUSDC Vault in round n through `deposit()` or `depositFor()`
-2. The contract creates an entry in `depositReceipt.amount` for 1000 USDC
-3. Vault Keeper rolls the contract through `rollToNextRound()` to advance the round to n+1
-4. Upon rolling the 1000 USDC is transfered to the Vault Keeper
+2. The contract creates an entry in `depositReceipt.amount` for 1000 USDC and updates `vaultState.totalPending`
+3. Vault Keeper rolls the contract through `rollToNextRound()` to advance the round to n+1 
+4. Upon rolling the 1000 USDC is transfered to the Vault Keeper and corresponding shares are minted
 5. The 1000 USDC is utilized in the active DMM strategy
 
 ## Vault Withdraw Flow
