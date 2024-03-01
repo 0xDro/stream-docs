@@ -17,6 +17,7 @@ Stream vaults are vaults composed as a solidity contract that follow a round-by-
 
 Stream Vaults allow for two types of withdraws: asynchronous withdraws and same-round-withdraws (instant withdraws)
 
+![Vault Instant Withdraw Flow Diagram](/img/WithdrawInstantFlow.png)
 ### Instant Withdraws
 Instant withdraws are only available when a user withdraws tokens in the same round they were deposited. These withdraws are fulfilled instantly as their tokens have not yet been deposited in the DMM strategy, but rather are still in a pending state in the smart contracts.
 
@@ -24,6 +25,8 @@ Instant withdraws are only available when a user withdraws tokens in the same ro
 2. The contract creates an entry in `depositReceipt.amount` for 1000 USDC
 3. User changes their mind on size and withdraws 500 USDC through `instantWithdraw()`
 4. User receives 500 USDC and updates `depositReceipt.amount` to be the remaining 500 USDC
+
+![Vault Async Withdraw Flow Diagram](/img/AsyncWithdrawFlow.png)
 
 ### Asynchronous Withdraws
 Asynchronous withdraws occur when a user deposited in a previous round, has their funds operating in the DMM strategy, and now want to make a request to withdraw their funds. In this scenario a request is made and only fulfilled at the time of the next round rollover. This means a user can wait -- in the worst case -- a week long to receive their deposited funds + yield through a secondary call to the vault's contracts after the rollover.
